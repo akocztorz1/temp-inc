@@ -1,6 +1,6 @@
 package io.kontak.apps.anomaly.detector.config;
 
-import io.kontak.apps.anomaly.detector.AnomalyDetector;
+import io.kontak.apps.anomaly.detector.algorithm.AnomalyDetector;
 import io.kontak.apps.anomaly.detector.TemperatureMeasurementsListener;
 import io.kontak.apps.event.Anomaly;
 import io.kontak.apps.event.TemperatureReading;

@@ -1,0 +1,105 @@
+openapi: 3.0.1
+info:
+  title: Temperature analytics api definition
+  version: v1
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /anomalies:
+    get:
+      tags:
+        - anomalies-resource
+      operationId: getAllAnomalies
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Anomaly'
+  /anomalies/thermometer/{thermometerId}:
+    get:
+      tags:
+        - anomalies-resource
+      operationId: getAnomaliesByThermometerId
+      parameters:
+        - name: thermometerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Anomaly'
+  /anomalies/room/{roomId}:
+    get:
+      tags:
+        - anomalies-resource
+      operationId: getAnomaliesByRoomId
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Anomaly'
+  /anomalies/aggregated:
+    get:
+      tags:
+        - anomalies-resource
+      operationId: getAllThermometersWithAnomaliesCount
+      parameters:
+        - name: threshold
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnomalyByThermometer'
+components:
+  schemas:
+    Anomaly:
+      type: object
+      properties:
+        temperature:
+          type: number
+          format: double
+        roomId:
+          type: string
+        thermometerId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    AnomalyByThermometer:
+      type: object
+      properties:
+        thermometerId:
+          type: string
+        count:
+          type: integer
+          format: int64
